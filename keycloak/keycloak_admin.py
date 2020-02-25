@@ -857,7 +857,7 @@ class KeycloakAdmin:
 
         payload = roles if isinstance(roles, list) else [roles]
         params_path = {"realm-name": self.realm_name, "id": group_id}
-        data_raw = self.raw_post(URL_ADMIN_GROUPS_REALM_ROLES.format(**params_path),
+        data_raw = self.connection.raw_post(URL_ADMIN_GROUPS_REALM_ROLES.format(**params_path),
                                  data=json.dumps(payload))
         return raise_error_from_response(data_raw, KeycloakGetError, expected_code=204)
 
@@ -872,7 +872,7 @@ class KeycloakAdmin:
 
         payload = roles if isinstance(roles, list) else [roles]
         params_path = {"realm-name": self.realm_name, "id": group_id}
-        data_raw = self.raw_delete(URL_ADMIN_GROUPS_REALM_ROLES.format(**params_path),
+        data_raw = self.connection.raw_delete(URL_ADMIN_GROUPS_REALM_ROLES.format(**params_path),
                                  data=json.dumps(payload))
         return raise_error_from_response(data_raw, KeycloakGetError, expected_code=204)
 
@@ -884,7 +884,7 @@ class KeycloakAdmin:
         :return: Keycloak server response (array RoleRepresentation)
         """
         params_path = {"realm-name": self.realm_name, "id": group_id}
-        data_raw = self.raw_get(URL_ADMIN_GET_GROUPS_REALM_ROLES.format(**params_path))
+        data_raw = self.connection.raw_get(URL_ADMIN_GET_GROUPS_REALM_ROLES.format(**params_path))
         return raise_error_from_response(data_raw, KeycloakGetError)
 
     def get_client_roles_of_user(self, user_id, client_id):
